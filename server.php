@@ -11,8 +11,16 @@ $ws->on('open', function ($ws, $request) {
 
 //监听WebSocket消息事件
 $ws->on('message', function ($ws, $frame) {
-  $message="欢迎用户".$frame->data."来到聊天室";
-    $ws->push($frame->fd, $message);
+    $info = json_decode($frame->data,true);
+    if($info['type']=='login'){
+        $message=[
+            'is_me'=>1,
+            'username'=>$info['con']
+        ];
+        $res=json_decode($message);
+        $ws->push($frame->fd, $res);
+    }
+ 
 });
 
 //监听WebSocket连接关闭事件

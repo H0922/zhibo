@@ -19,10 +19,15 @@
     var username = prompt('请输入用户名');
     var ws = new WebSocket("ws://182.92.161.74:9502");
     ws.onopen = function() {
-        ws.send(username);
+        var message = '{"type":"login","con":"' + username + '"}';
+        ws.send(message);
     }
     ws.onmessage = function(res) {
-        $("#list").text(res.data);
+        var data = JSON.parse(res.data);
+        if (data.is_me == 1) {
+            var con = "<p style='text-align:center'>尊敬的用户：" + data.username + "欢迎您的到来";
+        }
+        $("#list").text(con);
     }
 </script>
 
