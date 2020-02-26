@@ -17,7 +17,7 @@ $ws->on('message', function ($ws, $frame) {
             'is_me'=>1,
             'username'=>$info['con']
         ];
-        $res=json_decode($message);
+        $res=json_encode($message);
         $ws->push($frame->fd, $res);
     }
  
