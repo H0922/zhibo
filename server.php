@@ -34,7 +34,7 @@ $ws->on('message', function ($ws, $frame) {
         $res=json_encode($message,JSON_UNESCAPED_UNICODE);
         $ws->push($frame->fd, $res);
         foreach($userlist as $key=>$val){
-            if($frame->fd == $val['client_id']){
+            if($frame->fd != $val['client_id']){
                 $message=[
                     'is_me'=>0,
                     'username'=>$info['con']

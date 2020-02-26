@@ -25,9 +25,9 @@
     ws.onmessage = function(res) {
         var data = JSON.parse(res.data);
         if (data.is_me == 1) {
-            var con = "<p style='text-align:center'>尊敬的用户：" + data.username + "欢迎您的到来";
+            var con = "<p style='text-align:center'>尊敬的用户：" + data.username + "欢迎您的到来</p>";
         } else if (data.is_me == 0) {
-            var con = "<p style='text-align:center'>系统提示：" + data.username + "上线";
+            var con = "<p style='text-align:center'>系统提示：" + data.username + "上线</p>";
 
         }
         console.log(con);
