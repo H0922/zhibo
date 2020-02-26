@@ -23,8 +23,6 @@
         ws.send(message);
     }
     ws.onmessage = function(res) {
-        console.log(res);
-        return;
         var data = JSON.parse(res.data);
         if (data.is_me == 1) {
             var con = "<p style='text-align:center'>尊敬的用户：" + data.username + "欢迎您的到来";
