@@ -11,8 +11,8 @@ $ws->on('open', function ($ws, $request) {
 
 //监听WebSocket消息事件
 $ws->on('message', function ($ws, $frame) {
-    echo "Message: {$frame->data}\n";
-    $ws->push($frame->fd, "server: {$frame->data}");
+  $message="欢迎用户".$frame->data."来到聊天室";
+    $ws->push($frame->fd, $message);
 });
 
 //监听WebSocket连接关闭事件
