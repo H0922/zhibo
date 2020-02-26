@@ -40,7 +40,7 @@ $ws->on('message', function ($ws, $frame) {
                     'username'=>$info['con']
                 ];
                 $res=json_encode($message,JSON_UNESCAPED_UNICODE);
-                $ws->push($frame->fd, $res);
+                $ws->push($val['client_id'], $res);
             }
         }
     }
