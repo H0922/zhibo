@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.js"></script>
     <title>聊天室</title>
 </head>
 
@@ -13,7 +14,7 @@
     <input type="text">
     <input type="button" value="发送">
 </body>
-<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.js"></script>
+
 <script>
     var username = prompt('请输入用户名');
     var ws = new WebSocket("ws://182.92.161.74:9502");
