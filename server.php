@@ -28,6 +28,7 @@ $ws->on('message', function ($ws, $frame) {
         $str=json_encode($userlist,JSON_UNESCAPED_UNICODE);
         $redis->set($key,$str);
         $message=[
+            'type'=>'login',
             'is_me'=>1,
             'username'=>$info['con']
         ];
@@ -36,12 +37,44 @@ $ws->on('message', function ($ws, $frame) {
         foreach($userlist as $key=>$val){
             if($frame->fd != $val['client_id']){
                 $message=[
+                    'type'=>'login',
                     'is_me'=>0,
                     'username'=>$info['con']
                 ];
                 $res=json_encode($message,JSON_UNESCAPED_UNICODE);
                 $ws->push($val['client_id'], $res);
             }
+        }
+    }elseif($info['type']=='message'){
+        $redis=new Swoole\Coroutine\Redis();
+        $key="online_list";
+        $redis->connect('127.0.0.1',6379);
+        $list=$redis->get($key);
+        $userlist=json_decode($list,true);
+        foreach($userlist as $k=>$v){
+            if($v['client_id']==$frame->fd){
+                $name=$v['username'];
+            }
+        }
+        foreach($userlist as $key => $val){
+            if($frame->fd == $val['client_id']){
+                $message=[
+                    'type'=>'message',
+                    'is_me'=>1,
+                    'username'=>$name,
+                    'message'=>$info['con'],
+                ];
+              
+            }else{
+                $message=[
+                    'type'=>'message',
+                    'is_me'=>0,
+                    'username'=>$name,
+                    'message'=>$info['con'],
+                ];
+            }
+            $res=json_encode($message,JSON_UNESCAPED_UNICODE);
+            $ws->push($val['client_id'], $res);
         }
     }
  
