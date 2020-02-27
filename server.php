@@ -82,7 +82,29 @@ $ws->on('message', function ($ws, $frame) {
 
 //监听WebSocket连接关闭事件
 $ws->on('close', function ($ws, $fd) {
-    echo "client-{$fd} is closed\n";
+    $redis=new Swoole\Coroutine\Redis();
+        $key="online_list";
+        $redis->connect('127.0.0.1',6379);
+        $list=$redis->get($key);
+        $userlist=json_decode($list,true);
+        foreach($userlist as $key=>$val){
+            if($val['client_id']==$fd){
+                unset($userlist[$key]);
+                $name=$val['username'];
+            }
+        }
+        $str=json_encode($userlist);
+        $redis->set($key,$str);
+        var_dump($userlist);
+        foreach($userlist as $k=>$v){
+            $message=[
+                'type'=>'loginout',
+                'is_me'=>0,
+                'username'=>$name
+            ];
+            $res=json_encode($message,JSON_UNESCAPED_UNICODE);
+            $ws->push($v['client_id'],$res);
+        }
 });
 
 $ws->start();
