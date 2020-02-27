@@ -95,7 +95,6 @@ $ws->on('close', function ($ws, $fd) {
         }
         $str=json_encode($userlist);
         $redis->set($key,$str);
-        var_dump($userlist);
         foreach($userlist as $k=>$v){
             $message=[
                 'type'=>'loginout',
