@@ -12,7 +12,9 @@
 <body>
     <div style="width: 600px; height: 600px; border: 1px solid black;overflow: auto" id="list"></div>
     <input type="text" id="message">
+    <img src="./bq.png" alt="" style="width: 30px;height: 30px;margin-top: 10px;" id="bo">
     <input type="button" value="发送" id='btn'>
+    <div id="bqlist" style="width: 60%;height: auto;"></div>
 </body>
 
 <script>
@@ -39,6 +41,28 @@
     }
     $(document).on('click', '#btn', function() {
         var con = $('#message').val();
+        var message = '{"type":"message","con":"' + con + '"}';
+        ws.send(message);
+    });
+    $(document).on('click', '#bo', function() {
+        // alert(111);
+        $.ajax({
+            url: './bq.php',
+            dataType: 'json',
+            success: function(res) {
+                var img = '';
+                for (var i in res) {
+                    // console.log(res[i]);
+                    img += "<img class='bqimg' src='./bq/" + res[i] + "' style='width: 70px;height: 70px;'>";
+                }
+                //   console.log(img);
+                $('#bqlist').html(img);
+            }
+        })
+    });
+    $(document).on('click', '.bqimg', function() {
+        var res = $(this).attr("src");
+        var con = "<img class='bqimg' src='" + res + "' style='width: 70px;height: 70px;'>";
         var message = '{"type":"message","con":"' + con + '"}';
         ws.send(message);
     })
