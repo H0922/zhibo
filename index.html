@@ -51,7 +51,7 @@
         } else if (data.is_me == 0 && data.type == 'login') {
             var con = "<p style='text-align:center'>系统提示：" + data.username + "上线</p>";
         } else if (data.is_me == 1 && data.type == 'message') {
-            var con = "<div style='width: 560px; height: 100px;' align='right'><p>来自您的消息</p><p></p><p>" + data.message + "</p></div>"
+            var con = "<div style='width: 450px; height: 100px;' align='right'><p>来自您的消息</p><p></p><p>" + data.message + "</p></div>"
         } else if (data.is_me == 0 && data.type == 'message') {
             var con = "<div style='width: 300px; height: 100px;' alig='left'><p>来自" + data.username + "的消息</p><p></p><p>" + data.message + "</p></div>"
         } else if (data.is_me == 0 && data.type == 'loginout') {
