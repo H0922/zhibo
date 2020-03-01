@@ -6,18 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.js"></script>
+    <link rel="stylesheet" href="https://g.alicdn.com/de/prismplayer/2.8.7/skins/default/aliplayer-min.css" />
+    <script type="text/javascript" charset="utf-8" src="https://g.alicdn.com/de/prismplayer/2.8.7/aliplayer-min.js"></script>
     <title>聊天室</title>
 </head>
 
 <body>
-    <div style="width: 600px; height: 600px; border: 1px solid black;overflow: auto" id="list"></div>
-    <input type="text" id="message">
-    <img src="./bq.png" alt="" style="width: 30px;height: 30px;margin-top: 10px;" id="bo">
-    <input type="button" value="发送" id='btn'>
-    <div id="bqlist" style="width: 60%;height: auto;"></div>
+    <div style="width: 1000px;height: 600px;border: 1px solid black;float: left;" class="prism-player" id="player-con"></div>
+    <div style="float:right;">
+        <div style="width: 480px; height: 600px; border: 1px solid black;overflow: auto" id="list"></div>
+        <input type="text" id="message">
+        <img src="./bq.png" alt="" style="width: 30px;height: 30px;margin-top: 10px;" id="bo">
+        <input type="button" value="发送" id='btn'>
+        <div id="bqlist" style="width: 400px;height: auto;"></div>
+    </div>
 </body>
 
 <script>
+    var player = new Aliplayer({
+        "id": "player-con",
+        "source": "rtmp://youke.bianaoao.top/myfiestvideo/video?auth_key=1583072373-0-0-a6c51bdee40c8147e12cec60b84e9a6e",
+        "width": "100%",
+        "height": "500px",
+        "autoplay": true,
+        "isLive": false,
+        "rePlay": false,
+        "playsinline": true,
+        "preload": true,
+        "controlBarVisibility": "hover",
+        "useH5Prism": true
+    }, function(player) {
+        console.log("The player is created");
+    });
     var username = prompt('请输入用户名');
     var ws = new WebSocket("ws://182.92.161.74:9502");
     ws.onopen = function() {
