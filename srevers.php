@@ -14,7 +14,7 @@ $ws->on('message', function ($ws, $frame) {
     $info = json_decode($frame->data,true);
     if($info['type']=='login'){
         $redis=new Swoole\Coroutine\Redis();
-        $key="online_list";
+        $key="online";
         $redis->connect('127.0.0.1',6379);
         $list=$redis->get($key);
         $userlist=json_decode($list,true);
@@ -47,7 +47,7 @@ $ws->on('message', function ($ws, $frame) {
         }
     }elseif($info['type']=='message'){
         $redis=new Swoole\Coroutine\Redis();
-        $key="online_list";
+        $key="online";
         $redis->connect('127.0.0.1',6379);
         $list=$redis->get($key);
         $userlist=json_decode($list,true);
@@ -78,7 +78,7 @@ $ws->on('message', function ($ws, $frame) {
         }
     }elseif($info['type']=='liwu'){
         $redis=new Swoole\Coroutine\Redis();
-        $key="online_list";
+        $key="online";
         $redis->connect('127.0.0.1',6379);
         $list=$redis->get($key);
         $userlist=json_decode($list,true);
@@ -114,7 +114,7 @@ $ws->on('message', function ($ws, $frame) {
 //监听WebSocket连接关闭事件
 $ws->on('close', function ($ws, $fd) {
     $redis=new Swoole\Coroutine\Redis();
-        $key="online_list";
+        $key="online";
         $redis->connect('127.0.0.1',6379);
         $list=$redis->get($key);
         $userlist=json_decode($list,true);
